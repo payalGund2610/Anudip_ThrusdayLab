@@ -1,25 +1,20 @@
-package Synchronization;
+package Thr_Lab_11;
 
-import java.util.Scanner;
-
-public class Consumer extends Thread
+class Consumer implements Runnable 
 {
-	Shop shop;
-	Scanner sc = new Scanner(System.in);
-	public Consumer(Shop shop)
-	{
-		this.shop=shop;
-	}
-	public void run() 
-	{
-		int Kurkure,Maggi,Chocolate;
-		System.out.println("Enter Quantity of Kurkure=");
-		Kurkure = sc.nextInt();
-		System.out.println("Enter Quantity of Maggi=");
-		Maggi = sc.nextInt();
-		System.out.println("Enter Quantity of Chocolate=");
-		Chocolate = sc.nextInt();
-		
-		shop.Producer(Kurkure, Maggi, Chocolate);
-	}
+    private SharedBuffer sharedBuffer;
+
+    public Consumer(SharedBuffer sharedBuffer) 
+    {
+        this.sharedBuffer = sharedBuffer;
+    }
+
+    @Override
+    public void run() 
+    {
+        for (int i = 1; i <= 10; i++) 
+        {
+            sharedBuffer.consume();
+        }
+    }
 }
